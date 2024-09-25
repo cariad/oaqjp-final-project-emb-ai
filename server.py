@@ -12,6 +12,9 @@ def detector():
     text_to_analyze = request.args.get("textToAnalyze")
     result = emotion_detector(text_to_analyze)
 
+    if result.get("dominant_emotion") is None:
+        return "<p><strong>Invalid text! Please try again!</strong></p>"
+
     # Get the name and score of every emotion, ignoring the dominant for now:
     emotions = [
         f"'{emotion}': {result[emotion]}" 

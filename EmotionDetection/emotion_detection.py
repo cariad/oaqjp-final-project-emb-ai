@@ -7,6 +7,11 @@ def emotion_detector(text_to_analyse):
     headers = {"grpc-metadata-mm-model-id": "emotion_aggregated-workflow_lang_en_stock"}
     response = requests.post(url, json=body, headers=headers)  
 
+    if response.status_code == 204 or response.status_code == 400:
+        return {
+            "dominant_emotion": None,
+        }
+
     predictions = json.loads(response.text)
     emotions = predictions["emotionPredictions"][0]["emotion"]
     dominant = ""
