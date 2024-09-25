@@ -1,3 +1,7 @@
+"""
+Emotion analysis web app.
+"""
+
 from flask import Flask, render_template, request
 from EmotionDetection.emotion_detection import emotion_detector
 
@@ -5,10 +9,19 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
+    """
+    Renders and returns the index page.
+    """
+
     return render_template('index.html')
 
 @app.route("/emotionDetector")
 def detector():
+    """
+    Analyses the emotion of text provided by the "textToAnalyze" argument
+    and returns a descriptive explanation as an HTML fragment.
+    """
+
     text_to_analyze = request.args.get("textToAnalyze")
     result = emotion_detector(text_to_analyze)
 
